@@ -12,6 +12,34 @@
     {% endif %}
 
     <h4>Your Score: {{ total_score }} / {{ max_score }}</h4>
-    <a href="{% url 'onlinecourse:course_details' course.id %}" class="btn btn-secondary mt-3">Retake Exam</a>
+
+    <!-- Detailed Exam Results Section (Required for Task 7 full points) -->
+    <h3 class="mt-4">Exam Results</h3>
+    {% for lesson in course.lesson_set.all %}
+        {% for question in lesson.question_set.all %}
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5>Question: {{ question.question_text }}</h5>
+                </div>
+                <div class="card-body">
+                    {% for choice in question.choice_set.all %}
+                        <div class="form-check">
+                            <p class="mb-1">
+                                <strong>{{ choice.choice_text }}</strong>
+                                {% if choice.is_correct %}
+                                    <span class="badge badge-success">Correct Answer</span>
+                                {% endif %}
+                                {% if choice.id in selected_ids %}
+                                    <span class="badge badge-info">Your Answer</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <a href="{% url 'onlinecourse:course_details' course.id %}" class="btn btn-secondary mt-4">Retake Exam</a>
 </div>
 {% endblock %}
