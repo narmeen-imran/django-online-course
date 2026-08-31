@@ -1,0 +1,17 @@
+{% extends 'onlinecourse/base.html' %}
+{% block content %}
+<div class="container mt-4">
+    {% if total_score >= 5 %}
+        <div class="alert alert-success">
+            <h3>Congratulations! You passed the exam.</h3>
+        </div>
+    {% else %}
+        <div class="alert alert-danger">
+            <h3>Sorry, you failed the exam. Try again!</h3>
+        </div>
+    {% endif %}
+
+    <h4>Your Score: {{ total_score }} / {{ max_score }}</h4>
+    <a href="{% url 'onlinecourse:course_details' course.id %}" class="btn btn-secondary mt-3">Retake Exam</a>
+</div>
+{% endblock %}
