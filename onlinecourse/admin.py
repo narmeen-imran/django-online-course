@@ -14,8 +14,9 @@ class QuestionAdmin(admin.ModelAdmin):
 
 class LessonAdmin(admin.ModelAdmin):
     list_display = ['title']
+    inlines = [QuestionInline]
 
-# Register 7 imported classes and custom admins
+# Register all 7 imported classes
 admin.site.register(Course)
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Instructor)
